@@ -403,7 +403,7 @@
   <div id="panel-search" class="panel">
     <div class="page-header">
       <div class="page-title">Job search links</div>
-      <div class="page-sub">13 role types matched to your skills · 70+ curated links · Set daily alerts for the fastest response</div>
+      <div class="page-sub">Open each morning, bookmark and check daily for new roles</div>
     </div>
     <div id="search-links-container"></div>
   </div>
@@ -440,222 +440,75 @@ const PROFILE = {
 };
 
 const JOB_LINKS = [
-
-  // ── TIER 1: STRONGEST MATCH — lead with these ──────────────────────────────
-  {
-    cat: "🏆 Data Engineer", icon: "DE",
-    tip: "Your ETL/pipeline background + SQL + Python makes this a direct fit. Junior/mid roles are booming UK-wide.",
-    links: [
-      { label: "Indeed — Data Engineer UK (newest)", url: "https://uk.indeed.com/jobs?q=Data+Engineer+SQL+Python+ETL&l=United+Kingdom&sort=date", meta: "Broad UK search — SQL + Python + ETL keywords" },
-      { label: "Indeed — Junior Data Engineer UK", url: "https://uk.indeed.com/jobs?q=Junior+Data+Engineer+ETL&l=United+Kingdom&sort=date", meta: "Entry-level & 1–3 yr experience roles" },
-      { label: "Indeed — Data Engineer Birmingham / Hybrid", url: "https://uk.indeed.com/jobs?q=Data+Engineer&l=Birmingham%2C+England&sort=date", meta: "Local & hybrid — commutable from Birmingham" },
-      { label: "LinkedIn — Data Engineer UK (1–3 yrs exp)", url: "https://www.linkedin.com/jobs/search/?keywords=Data%20Engineer&location=United%20Kingdom&f_E=2%2C3&sortBy=DD", meta: "Filtered to associate/mid level, date sorted" },
-      { label: "Glassdoor — Data Engineer Leeds", url: "https://www.glassdoor.co.uk/Job/leeds-data-engineer-jobs-SRCH_IL.0,5_IC3536413_KO6,19.htm", meta: "Strong Leeds market — commutable for you" },
-      { label: "Totaljobs — Data Engineer UK", url: "https://www.totaljobs.com/jobs/data-engineer", meta: "High volume listings, salary filters available" },
-      { label: "CV-Library — Data Engineer roles", url: "https://www.cv-library.co.uk/data-engineer-jobs", meta: "Large UK job board, good mid-market coverage" },
-      { label: "Reed — Data Engineer UK", url: "https://www.reed.co.uk/jobs/data-engineer-jobs", meta: "Reed has strong SME & consultancy listings" },
-    ]
-  },
-
-  {
-    cat: "🏆 ETL / Data Pipeline Developer", icon: "ET",
-    tip: "5+ years with IBM DataStage, ETL testing & data validation is rare and valued. These roles pay well.",
-    links: [
-      { label: "Indeed — ETL Developer UK", url: "https://uk.indeed.com/jobs?q=ETL+Developer+DataStage+SQL&l=United+Kingdom&sort=date", meta: "IBM DataStage experience is a strong differentiator" },
-      { label: "Indeed — ETL Engineer UK", url: "https://uk.indeed.com/jobs?q=ETL+Engineer+Python+SQL&l=United+Kingdom&sort=date", meta: "Modern Python-based pipeline roles" },
-      { label: "Indeed — Data Pipeline Engineer UK", url: "https://uk.indeed.com/jobs?q=Data+Pipeline+Engineer&l=United+Kingdom&sort=date", meta: "Cloud-era pipeline roles — Azure/Snowflake" },
-      { label: "Indeed — Data Integration Engineer UK", url: "https://uk.indeed.com/jobs?q=Data+Integration+Engineer+ETL&l=United+Kingdom&sort=date", meta: "Integration & transformation focus" },
-      { label: "LinkedIn — ETL Developer UK", url: "https://www.linkedin.com/jobs/search/?keywords=ETL%20Developer&location=United%20Kingdom&sortBy=DD", meta: "Many consultancy & financial services roles" },
-      { label: "Totaljobs — ETL Developer UK", url: "https://www.totaljobs.com/jobs/etl-developer", meta: "Good coverage of banking & insurance sector" },
-    ]
-  },
-
-  {
-    cat: "🏆 Data Quality / Data Integrity Analyst", icon: "DQ",
-    tip: "1.3M rows validated, 500+ defects found — this is your unique story. Few candidates have this depth.",
-    links: [
-      { label: "Indeed — Data Quality Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Quality+Analyst&l=United+Kingdom&sort=date", meta: "Your strongest differentiator — lead with defect stats" },
-      { label: "Indeed — Data Quality Engineer UK", url: "https://uk.indeed.com/jobs?q=Data+Quality+Engineer+SQL&l=United+Kingdom&sort=date", meta: "More technical, better salary band" },
-      { label: "Indeed — Data Integrity Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Integrity+Analyst&l=United+Kingdom&sort=date", meta: "Common in pharma, banking, life sciences" },
-      { label: "Indeed — Data Steward UK", url: "https://uk.indeed.com/jobs?q=Data+Steward+SQL&l=United+Kingdom&sort=date", meta: "Data governance entry point — strong NHS & finance demand" },
-      { label: "Indeed — Data Governance Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Governance+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Growing fast in financial services & public sector" },
-      { label: "LinkedIn — Data Quality UK", url: "https://www.linkedin.com/jobs/search/?keywords=Data%20Quality%20Analyst&location=United%20Kingdom&sortBy=DD", meta: "Many pharma, banking and NHS roles" },
-      { label: "Totaljobs — Data Quality Birmingham", url: "https://www.totaljobs.com/jobs/data-quality-analyst/in-birmingham", meta: "Local roles with salary filter" },
-    ]
-  },
-
-  // ── TIER 2: STRONG MATCH ───────────────────────────────────────────────────
-  {
-    cat: "⭐ Data Analyst", icon: "DA",
-    tip: "Bread-and-butter role — massive volume in UK. Lean on SQL + Power BI cert + Python projects.",
-    links: [
-      { label: "Indeed — Data Analyst UK (newest)", url: "https://uk.indeed.com/jobs?q=Data+Analyst+SQL+Power+BI&l=United+Kingdom&sort=date", meta: "Broadest search — highest volume of roles" },
-      { label: "Indeed — Data Analyst Birmingham", url: "https://uk.indeed.com/jobs?q=Data+Analyst+SQL+Power+BI&l=Birmingham%2C+England&sort=date", meta: "Local roles, commutable distance" },
-      { label: "Indeed — Data Analyst remote UK", url: "https://uk.indeed.com/jobs?q=Data+Analyst+Power+BI+Tableau&remotejob=032b3046-06a0-4cbb-8c7c-501578ad9650&sort=date", meta: "Remote & hybrid across UK" },
-      { label: "Indeed — Data Analyst Leeds / Manchester", url: "https://uk.indeed.com/jobs?q=Data+Analyst+SQL&l=Leeds%2C+England&sort=date", meta: "Strong northern market — good salary/cost ratio" },
-      { label: "Glassdoor — Data Analyst Birmingham", url: "https://www.glassdoor.co.uk/Job/birmingham-data-analyst-jobs-SRCH_IL.0,10_IC3376957_KO11,23.htm", meta: "Includes salary estimates & company reviews" },
-      { label: "Hays — Data Analyst UK", url: "https://www.hays.co.uk/jobs/details/data-analyst", meta: "Specialist recruiter — high-quality listings" },
-      { label: "Michael Page — Data Analyst UK", url: "https://www.michaelpage.co.uk/jobs/technology/data-analyst", meta: "Finance & professional services focus" },
-      { label: "Reed — Data Analyst UK", url: "https://www.reed.co.uk/jobs/data-analyst-jobs", meta: "Huge volume — set a daily alert" },
-    ]
-  },
-
-  {
-    cat: "⭐ BI / Power BI Developer", icon: "BI",
-    tip: "Your PL-300 certification is a direct requirement for these roles. Mention it in every application.",
-    links: [
-      { label: "Indeed — Power BI Developer UK", url: "https://uk.indeed.com/jobs?q=Power+BI+Developer&l=United+Kingdom&sort=date", meta: "Direct match to your PL-300 cert" },
-      { label: "Indeed — BI Developer SQL UK", url: "https://uk.indeed.com/jobs?q=BI+Developer+SQL+Power+BI&l=United+Kingdom&sort=date", meta: "Business intelligence dev roles" },
-      { label: "Indeed — BI Analyst Power BI UK", url: "https://uk.indeed.com/jobs?q=BI+Analyst+Power+BI+Tableau&l=United+Kingdom&sort=date", meta: "Analyst-level BI roles — good volume" },
-      { label: "CV-Library — Power BI Developer UK", url: "https://www.cv-library.co.uk/power-bi-developer-jobs", meta: "Strong coverage, good salary filters" },
-      { label: "Totaljobs — Power BI Developer UK", url: "https://www.totaljobs.com/jobs/power-bi-developer", meta: "NHS, finance, retail — wide sector spread" },
-      { label: "LinkedIn — Power BI Developer UK", url: "https://www.linkedin.com/jobs/search/?keywords=Power%20BI%20Developer&location=United%20Kingdom&sortBy=DD", meta: "Many consultancy & agency roles" },
-      { label: "Reed — Power BI Analyst UK", url: "https://www.reed.co.uk/jobs/power-bi-jobs", meta: "Set a daily alert — high new listing volume" },
-    ]
-  },
-
-  {
-    cat: "⭐ Reporting Analyst / MI Analyst", icon: "MI",
-    tip: "NHS, councils & financial services hire constantly. SQL + Power BI + Tableau is the exact toolkit they want.",
-    links: [
-      { label: "Indeed — Reporting Analyst UK", url: "https://uk.indeed.com/jobs?q=Reporting+Analyst+Power+BI+SQL&l=United+Kingdom&sort=date", meta: "NHS, public sector & finance roles" },
-      { label: "Indeed — MI Analyst UK", url: "https://uk.indeed.com/jobs?q=MI+Analyst+SQL+Power+BI&l=United+Kingdom&sort=date", meta: "Management Information — financial services focus" },
-      { label: "Indeed — MI Analyst Birmingham", url: "https://uk.indeed.com/jobs?q=MI+Analyst+SQL&l=Birmingham%2C+England&sort=date", meta: "Local NHS & local authority roles" },
-      { label: "Indeed — MIS Analyst UK", url: "https://uk.indeed.com/jobs?q=MIS+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Management Information Systems — broad sector" },
-      { label: "NHS Jobs — Data / MI Analyst", url: "https://www.jobs.nhs.uk/candidate/search/results?keyword=data+analyst+sql&language=en", meta: "NHS-specific board — pension & stability benefits" },
-      { label: "Totaljobs — Reporting Analyst UK", url: "https://www.totaljobs.com/jobs/reporting-analyst", meta: "Strong insurance & banking coverage" },
-    ]
-  },
-
-  {
-    cat: "⭐ Financial Data Analyst", icon: "FD",
-    tip: "SMTB & IADB banking experience + SWIFT/ISO 20022 knowledge commands a premium. Mention it explicitly.",
-    links: [
-      { label: "Indeed — Financial Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Financial+Data+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Your banking QA background is a strong match" },
-      { label: "Indeed — Banking Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Analyst+Banking+Financial+Services&l=United+Kingdom&sort=date", meta: "Premium pay for SMTB/IADB/SWIFT experience" },
-      { label: "Indeed — Risk Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Risk+Data+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Risk & compliance data — growing fast post-regulation" },
-      { label: "Indeed — Regulatory Reporting Analyst UK", url: "https://uk.indeed.com/jobs?q=Regulatory+Reporting+Analyst+SQL&l=United+Kingdom&sort=date", meta: "ISO 20022 / SWIFT knowledge is valued here" },
-      { label: "eFinancialCareers — Data Analyst UK", url: "https://www.efinancialcareers.co.uk/search?q=data+analyst&l=United+Kingdom&sort=date", meta: "Specialist finance job board — better quality roles" },
-      { label: "Totaljobs — Financial Data Analyst London", url: "https://www.totaljobs.com/jobs/financial-data-analyst/in-london", meta: "Higher salary bands £40k–£65k" },
-      { label: "Michael Page — Finance Data Analyst", url: "https://www.michaelpage.co.uk/jobs/finance-and-accounting/financial-analyst", meta: "Recruiter specialising in finance roles" },
-    ]
-  },
-
-  // ── TIER 3: GOOD FIT — transferable skills ─────────────────────────────────
-  {
-    cat: "💡 Data Migration Analyst", icon: "DM",
-    tip: "Cloud migration projects are booming. ETL testing + data validation = exactly what these projects need.",
-    links: [
-      { label: "Indeed — Data Migration Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Migration+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Cloud migration boom — lots of contract & perm roles" },
-      { label: "Indeed — Data Migration Engineer UK", url: "https://uk.indeed.com/jobs?q=Data+Migration+Engineer&l=United+Kingdom&sort=date", meta: "More technical — Python/SQL focus" },
-      { label: "Indeed — Data Conversion Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Conversion+Analyst+ETL&l=United+Kingdom&sort=date", meta: "ERP/CRM migrations — NHS & public sector" },
-      { label: "LinkedIn — Data Migration UK", url: "https://www.linkedin.com/jobs/search/?keywords=Data%20Migration%20Analyst&location=United%20Kingdom&sortBy=DD", meta: "Consultancy & systems integration firms" },
-    ]
-  },
-
-  {
-    cat: "💡 SQL Developer / Database Analyst", icon: "SQL",
-    tip: "Strong SQL skills + 6 years writing complex queries makes you competitive for pure SQL roles.",
-    links: [
-      { label: "Indeed — SQL Developer UK", url: "https://uk.indeed.com/jobs?q=SQL+Developer&l=United+Kingdom&sort=date", meta: "Pure SQL engineering roles — good salary range" },
-      { label: "Indeed — SQL Analyst UK", url: "https://uk.indeed.com/jobs?q=SQL+Analyst+Data&l=United+Kingdom&sort=date", meta: "Analysis + SQL focus — broad sector" },
-      { label: "Indeed — Database Analyst UK", url: "https://uk.indeed.com/jobs?q=Database+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Database design & querying roles" },
-      { label: "Totaljobs — SQL Developer UK", url: "https://www.totaljobs.com/jobs/sql-developer", meta: "High volume — set a daily alert" },
-      { label: "CV-Library — SQL Developer UK", url: "https://www.cv-library.co.uk/sql-developer-jobs", meta: "Strong mid-market coverage" },
-    ]
-  },
-
-  {
-    cat: "💡 QA / Test Analyst (Data Focus)", icon: "QA",
-    tip: "Don't forget your roots — senior QA roles pay well & value your DataStage + banking test experience.",
-    links: [
-      { label: "Indeed — Data QA Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+QA+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Bridges your QA past with your data future" },
-      { label: "Indeed — Test Analyst Data SQL UK", url: "https://uk.indeed.com/jobs?q=Test+Analyst+Data+SQL&l=United+Kingdom&sort=date", meta: "Data-focused testing roles — financial services" },
-      { label: "Indeed — ETL Test Analyst UK", url: "https://uk.indeed.com/jobs?q=ETL+Test+Analyst+DataStage&l=United+Kingdom&sort=date", meta: "IBM DataStage skills are rare — stand out here" },
-      { label: "Indeed — UAT Analyst UK", url: "https://uk.indeed.com/jobs?q=UAT+Analyst+Data+SQL&l=United+Kingdom&sort=date", meta: "User acceptance testing — data-heavy industries" },
-    ]
-  },
-
-  {
-    cat: "💡 Tableau / Data Visualisation Analyst", icon: "TV",
-    tip: "Tableau + Power BI + Cognos together is unusual. Target companies using Tableau Server or Salesforce.",
-    links: [
-      { label: "Indeed — Tableau Developer UK", url: "https://uk.indeed.com/jobs?q=Tableau+Developer+Analyst&l=United+Kingdom&sort=date", meta: "Tableau expertise is a premium skill" },
-      { label: "Indeed — Data Visualisation Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Visualisation+Analyst+Tableau&l=United+Kingdom&sort=date", meta: "Creative + analytical roles" },
-      { label: "LinkedIn — Tableau Analyst UK", url: "https://www.linkedin.com/jobs/search/?keywords=Tableau%20Analyst&location=United%20Kingdom&sortBy=DD", meta: "Retail analytics, pharma & consulting" },
-      { label: "Totaljobs — Tableau Developer UK", url: "https://www.totaljobs.com/jobs/tableau-developer", meta: "Insurance, retail & NHS demand" },
-    ]
-  },
-
-  {
-    cat: "💡 Compliance / Regulatory Data Analyst", icon: "RG",
-    tip: "21 CFR Part 11 + ISO 20022 + SWIFT compliance experience opens pharma, banking & fintech doors.",
-    links: [
-      { label: "Indeed — Compliance Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Compliance+Data+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Financial regulation — FCA, PRA reporting" },
-      { label: "Indeed — Regulatory Analyst UK", url: "https://uk.indeed.com/jobs?q=Regulatory+Data+Analyst+SQL&l=United+Kingdom&sort=date", meta: "SMTB/IADB banking background is an asset" },
-      { label: "Indeed — Life Sciences Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Life+Sciences+Data+Analyst+Validation&l=United+Kingdom&sort=date", meta: "21 CFR Part 11 experience from ValGenesis is valued" },
-      { label: "eFinancialCareers — Regulatory Reporting", url: "https://www.efinancialcareers.co.uk/search?q=regulatory+reporting+analyst&l=United+Kingdom", meta: "Specialist finance board — better quality" },
-    ]
-  },
-
-  {
-    cat: "💡 Azure / Cloud Data Analyst", icon: "AZ",
-    tip: "Azure AI-900 cert shows cloud awareness. Target roles using Azure Data Factory, Synapse or Databricks.",
-    links: [
-      { label: "Indeed — Azure Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Azure+Data+Analyst+SQL&l=United+Kingdom&sort=date", meta: "AI-900 cert + SQL is a good entry combination" },
-      { label: "Indeed — Azure Data Engineer UK", url: "https://uk.indeed.com/jobs?q=Azure+Data+Engineer&l=United+Kingdom&sort=date", meta: "Cloud-first engineering — next career step" },
-      { label: "Indeed — Cloud Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Cloud+Data+Analyst+Azure+SQL&l=United+Kingdom&sort=date", meta: "Azure + SQL + Python — you have the core stack" },
-      { label: "LinkedIn — Azure Data Engineer UK", url: "https://www.linkedin.com/jobs/search/?keywords=Azure%20Data%20Engineer&location=United%20Kingdom&sortBy=DD", meta: "Many Microsoft partner consultancies hiring" },
-    ]
-  },
-
-  {
-    cat: "💡 Operations / Commercial Data Analyst", icon: "OP",
-    tip: "Your sales, insurance & coffee chain projects show commercial data skills. Target ops & retail analytics.",
-    links: [
-      { label: "Indeed — Operations Analyst UK", url: "https://uk.indeed.com/jobs?q=Operations+Analyst+SQL+Power+BI&l=United+Kingdom&sort=date", meta: "Retail, logistics & supply chain — high volume" },
-      { label: "Indeed — Commercial Analyst UK", url: "https://uk.indeed.com/jobs?q=Commercial+Analyst+SQL+Excel&l=United+Kingdom&sort=date", meta: "Pricing, margin & revenue analysis" },
-      { label: "Indeed — Insight Analyst UK", url: "https://uk.indeed.com/jobs?q=Insight+Analyst+SQL+Tableau&l=United+Kingdom&sort=date", meta: "Marketing & customer analytics — growing fast" },
-      { label: "Indeed — Sales Analyst UK", url: "https://uk.indeed.com/jobs?q=Sales+Analyst+Power+BI+SQL&l=United+Kingdom&sort=date", meta: "Your coffee chain & bookstore projects are relevant" },
-      { label: "Indeed — Performance Analyst UK", url: "https://uk.indeed.com/jobs?q=Performance+Analyst+SQL+Power+BI&l=United+Kingdom&sort=date", meta: "NHS, telecoms & retail — very high volume" },
-    ]
-  },
-
-  // ── RECRUITER AGENCIES ─────────────────────────────────────────────────────
-  {
-    cat: "📞 Specialist Recruiters — Register Today", icon: "RR",
-    tip: "Register your CV with these agencies — they get exclusive roles not advertised publicly.",
-    links: [
-      { label: "Hays Technology — Data roles UK", url: "https://www.hays.co.uk/it-jobs", meta: "Largest specialist tech recruiter in UK" },
-      { label: "Michael Page Technology — Data UK", url: "https://www.michaelpage.co.uk/jobs/technology", meta: "Strong finance & professional services network" },
-      { label: "Robert Half Technology — Data UK", url: "https://www.roberthalf.co.uk/jobs/technology", meta: "Finance & accounting sector strength" },
-      { label: "Nigel Frank — Data & Analytics UK", url: "https://www.nigelfrank.com/jobs/data-analytics/uk", meta: "Microsoft stack specialists — Power BI focus" },
-      { label: "Harvey Nash — Data Engineering UK", url: "https://www.harveynash.com/jobs/data", meta: "Tech consultancy & digital transformation" },
-      { label: "Tenth Revolution — Azure Data UK", url: "https://www.tenthrevolution.com/jobs?skill=Azure", meta: "Microsoft Azure & data engineering specialists" },
-      { label: "Computer Futures — Data Engineer UK", url: "https://www.computerfutures.com/en-gb/jobs/?q=data+engineer", meta: "Contract & perm data engineering roles" },
-      { label: "Lorien — Data Analyst UK", url: "https://lorientech.com/jobs/?q=data+analyst", meta: "Strong in financial services & insurance" },
-    ]
-  },
-
-  // ── JOB ALERT SETUP ────────────────────────────────────────────────────────
-  {
-    cat: "🔔 Set Up Daily Job Alerts", icon: "AL",
-    tip: "Set these up once — they email you new roles every morning. The best roles go within 24–48 hours.",
-    links: [
-      { label: "Indeed — Create job alert (Data Engineer UK)", url: "https://uk.indeed.com/jobs?q=Data+Engineer+SQL&l=United+Kingdom&sort=date", meta: "Click 'Get job alerts' on results page — takes 30 sec" },
-      { label: "LinkedIn — Job alerts (Data Engineer UK)", url: "https://www.linkedin.com/jobs/search/?keywords=Data%20Engineer&location=United%20Kingdom&sortBy=DD", meta: "Click 'Create job alert' — also alerts you to Easy Apply roles" },
-      { label: "Totaljobs — Job alert setup", url: "https://www.totaljobs.com/jobs/data-analyst", meta: "Set salary filter before saving alert" },
-      { label: "Reed — Data job alert", url: "https://www.reed.co.uk/jobs/data-analyst-jobs", meta: "Click bell icon — good for NHS & public sector" },
-      { label: "CV-Library — Data Engineer alert", url: "https://www.cv-library.co.uk/data-engineer-jobs", meta: "Upload CV too — recruiters search this database" },
-    ]
-  },
+  { cat: "Data Analyst", icon: "DA", links: [
+    { label: "Indeed — Data Analyst Birmingham", url: "https://uk.indeed.com/jobs?q=Data+Analyst+SQL+Power+BI&l=Birmingham%2C+England&sort=date", meta: "Filters by SQL + Power BI, newest first" },
+    { label: "Indeed — Data Analyst remote UK", url: "https://uk.indeed.com/jobs?q=Data+Analyst+Power+BI+Tableau&remotejob=032b3046-06a0-4cbb-8c7c-501578ad9650&sort=date", meta: "Remote & hybrid roles across UK" },
+    { label: "Glassdoor — Data Analyst Birmingham", url: "https://www.glassdoor.co.uk/Job/birmingham-data-analyst-jobs-SRCH_IL.0,10_IC3376957_KO11,23.htm", meta: "With salary estimates" },
+    { label: "Hays — Data Analyst Birmingham", url: "https://www.hays.co.uk/job-search/data-analyst-jobs-in-birmingham-uk", meta: "Specialist recruiter listings" },
+  ]},
+  { cat: "Data Quality / Governance", icon: "DQ", links: [
+    { label: "Indeed — Data Quality Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Quality+Analyst&l=United+Kingdom&sort=date", meta: "Your strongest differentiator role" },
+    { label: "Indeed — Data Governance Analyst", url: "https://uk.indeed.com/jobs?q=Data+Governance+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Growing demand in financial services" },
+    { label: "Totaljobs — Data Quality Birmingham", url: "https://www.totaljobs.com/jobs/data-quality-analyst/in-birmingham", meta: "Local roles with salary filters" },
+  ]},
+  { cat: "BI / Reporting Analyst", icon: "BI", links: [
+    { label: "Indeed — BI Analyst Power BI Birmingham", url: "https://uk.indeed.com/jobs?q=BI+Analyst+Power+BI&l=Birmingham%2C+England&sort=date", meta: "Direct match to your PL-300 cert" },
+    { label: "CV-Library — Power BI roles UK", url: "https://www.cv-library.co.uk/power-bi-developer-jobs", meta: "Large volume of live listings" },
+    { label: "Indeed — Reporting Analyst UK", url: "https://uk.indeed.com/jobs?q=Reporting+Analyst+Power+BI+Tableau&l=United+Kingdom&sort=date", meta: "NHS, public sector & finance roles" },
+  ]},
+  { cat: "Banking / Financial Data", icon: "FD", links: [
+    { label: "Indeed — Banking Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Analyst+Banking+Financial+Services&sort=date", meta: "Premium for your SMTB/IADB experience" },
+    { label: "Totaljobs — Financial Data Analyst London", url: "https://www.totaljobs.com/jobs/financial-data-analyst/in-london", meta: "Higher salary bands £40k–£65k" },
+    { label: "Glassdoor — Data Analyst London", url: "https://www.glassdoor.co.uk/Job/london-data-analyst-jobs-SRCH_IL.0,6_IM1035_KO7,19.htm", meta: "With company reviews" },
+  ]},
+  { cat: "ETL / Data Migration", icon: "ET", links: [
+    { label: "Indeed — ETL Tester / Data Analyst UK", url: "https://uk.indeed.com/jobs?q=ETL+Tester+Data+Analyst&l=United+Kingdom&sort=date", meta: "IBM DataStage experience valued" },
+    { label: "Indeed — Data Migration Analyst", url: "https://uk.indeed.com/jobs?q=Data+Migration+Analyst&l=United+Kingdom&sort=date", meta: "Cloud migration projects booming" },
+  ]},
+  { cat: "MI / Management Information", icon: "MI", links: [
+    { label: "Indeed — MI Analyst Birmingham", url: "https://uk.indeed.com/jobs?q=MI+Analyst+SQL+Power+BI&l=Birmingham%2C+England&sort=date", meta: "NHS & local authority roles" },
+    { label: "Indeed — Management Information Analyst UK", url: "https://uk.indeed.com/jobs?q=Management+Information+Analyst+Power+BI&l=United+Kingdom&sort=date", meta: "Strong match for reporting skills" },
+  ]},
 ];
 
-let jobs = JSON.parse(localStorage.getItem('jobhub_jobs') || '[]');
+const SEED_JOBS = [
+  { title: "Digital Data Analyst", company: "Mitchells & Butlers PLC", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600001 },
+  { title: "Graduate D&AI Resource", company: "hackajob", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600002 },
+  { title: "Analyst, Data Analytics – Transaction Services", company: "Alvarez & Marsal", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600003 },
+  { title: "(Junior) Master Data & Process Analyst", company: "RWE", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600004 },
+  { title: "Power BI Developer", company: "Roc Search", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600005 },
+  { title: "Graduate Programme – Data/Digital Analyst", company: "Together Financial Services", location: "Cheadle (On-site)", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600006 },
+  { title: "Business Intelligence Analyst", company: "The National Archives", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600007 },
+  { title: "Alts Data Ops Analyst", company: "Addepar", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600008 },
+  { title: "Customer Analytics Consultant", company: "Accenture UK & Ireland", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600009 },
+  { title: "Data Analyst (Governance)", company: "Ardonagh Specialty", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600010 },
+  { title: "Supply Chain Replenishment & Data Insights Analyst", company: "Aldi", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600011 },
+  { title: "Data Analyst Officer", company: "Hays Specialist Recruitment", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600012 },
+  { title: "Data Analyst - Corporate Property", company: "Hays Specialist Recruitment", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600013 },
+  { title: "Junior Group Data Analyst", company: "Agility", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600014 },
+  { title: "Finance Analyst", company: "Robert Walters", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600015 },
+  { title: "Interim Commercial Finance Analyst", company: "Robert Walters", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600016 },
+  { title: "Demand Analyst", company: "Greencore", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600017 },
+  { title: "Temporary Data Analysis", company: "Office Angels (Global Retail Brand)", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed — globally recognised retail brand", addedAt: 1746057600018 },
+  { title: "Data Analyst SystmOne", company: "Hays Specialist Recruitment", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: Reed", addedAt: 1746057600019 },
+  { title: "Data Quality Analyst", company: "Venturi", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600020 },
+  { title: "Jr Data Analyst - BI", company: "MiQ", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600021 },
+  { title: "Financial Data Analyst", company: "Arval BNP Paribas Group", location: "UK", salary: "", url: "", date: "2025-04-30", status: "Applied", contact: "", notes: "Source: LinkedIn", addedAt: 1746057600022 },
+  { title: "Data Engineer", company: "Impactive IT", location: "Leeds, Hybrid", salary: "£30,000–£40,000", url: "", date: "2025-05-01", status: "Applied", contact: "", notes: "Source: LinkedIn — via Impactive IT recruiter. 10% bonus. Tailored CV sent.", addedAt: 1746057600023 },
+];
+
+// Merge seed jobs with any already saved — avoid duplicates by addedAt
+let saved = [];
+try { saved = JSON.parse(localStorage.getItem('jobhub_jobs') || '[]'); } catch(e) { saved = []; }
+const savedIds = new Set(saved.map(j => j.addedAt));
+const seeded = SEED_JOBS.filter(j => !savedIds.has(j.addedAt));
+let jobs = [...seeded, ...saved];
 let generatedEmail = '';
 let generatedSubject = '';
 
 function save() { try { localStorage.setItem('jobhub_jobs', JSON.stringify(jobs)); } catch(e){} }
+// Persist the seeded jobs immediately on first load
+save();
 
 function toast(msg, duration=3000) {
   const t = document.getElementById('toast');
@@ -1023,12 +876,9 @@ function renderSearchLinks() {
   const container = document.getElementById('search-links-container');
   container.innerHTML = JOB_LINKS.map(cat => `
     <div class="card" style="margin-bottom:14px">
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
-        <div class="job-icon" style="background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:700;width:34px;height:34px;flex-shrink:0">${cat.icon}</div>
-        <div>
-          <div class="link-cat">${cat.cat}</div>
-          ${cat.tip ? `<div style="font-size:12px;color:var(--ink-3);margin-top:2px;line-height:1.4">${cat.tip}</div>` : ''}
-        </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div class="job-icon" style="background:var(--teal-light);color:var(--teal)">${cat.icon}</div>
+        <div class="link-cat">${cat.cat}</div>
       </div>
       ${cat.links.map(l => `
         <div class="link-item">
