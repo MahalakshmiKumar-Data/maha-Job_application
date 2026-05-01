@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobHub — Mahalakshmi Kumar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --ink-2: #3a3835;
+    --ink-3: #7a7672;
+    --paper: #faf9f7;
+    --surface: #f3f1ee;
+    --surface-2: #e8e5e0;
+    --border: rgba(15,14,13,0.10);
+    --border-2: rgba(15,14,13,0.18);
+    --teal: #0a6e5c;
+    --teal-light: #e0f2ed;
+    --teal-mid: #1a9e82;
+    --amber: #b45309;
+    --amber-light: #fef3c7;
+    --red: #b91c1c;
+    --red-light: #fee2e2;
+    --blue: #1e40af;
+    --blue-light: #dbeafe;
+    --green: #166534;
+    --green-light: #dcfce7;
+    --purple: #6d28d9;
+    --purple-light: #ede9fe;
+    --r: 10px;
+    --r-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; display: flex; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 240px; flex-shrink: 0; background: var(--ink); color: #f5f3f0;
+    display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0;
+    padding: 28px 0 20px;
+  }
+  .sidebar-brand { padding: 0 24px 28px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 16px; }
+  .brand-name { font-family: 'DM Serif Display', serif; font-size: 22px; color: #fff; line-height: 1.2; }
+  .brand-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 11px 24px;
+    font-size: 13.5px; color: rgba(255,255,255,0.55); cursor: pointer;
+    transition: all 0.15s; border-left: 2px solid transparent; font-weight: 400;
+  }
+  .nav-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
+  .nav-item.active { color: #fff; border-left-color: var(--teal-mid); background: rgba(255,255,255,0.07); font-weight: 500; }
+  .nav-icon { width: 16px; height: 16px; opacity: 0.7; flex-shrink: 0; }
+  .nav-item.active .nav-icon { opacity: 1; }
+  .nav-badge { margin-left: auto; background: var(--teal-mid); color: #fff; font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 20px; }
+  .sidebar-footer { margin-top: auto; padding: 16px 24px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .profile-chip { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--teal-mid); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; color: #fff; flex-shrink: 0; }
+  .profile-name { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.3; }
+  .profile-role { font-size: 10px; color: rgba(255,255,255,0.35); }
+
+  /* MAIN */
+  .main { flex: 1; overflow-y: auto; padding: 36px 40px; max-width: 960px; }
+  .page-header { margin-bottom: 28px; }
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--ink); }
+  .page-sub { font-size: 14px; color: var(--ink-3); margin-top: 4px; }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* STAT CARDS */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  .stat-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; box-shadow: var(--shadow); }
+  .stat-n { font-size: 32px; font-weight: 600; color: var(--ink); line-height: 1; }
+  .stat-l { font-size: 12px; color: var(--ink-3); margin-top: 6px; font-weight: 400; }
+  .stat-n.green { color: var(--teal); }
+  .stat-n.amber { color: var(--amber); }
+  .stat-n.blue { color: var(--blue); }
+
+  /* CARDS */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 20px 22px; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .card-sub { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+
+  /* SECTION LABEL */
+  .section-label { font-size: 11px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+
+  /* BADGES */
+  .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .badge.applied { background: var(--blue-light); color: var(--blue); }
+  .badge.interview { background: var(--green-light); color: var(--green); }
+  .badge.followup { background: var(--amber-light); color: var(--amber); }
+  .badge.rejected { background: var(--red-light); color: var(--red); }
+  .badge.offer { background: var(--purple-light); color: var(--purple); }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--r-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { background: var(--ink-2); }
+  .btn-teal { background: var(--teal); color: #fff; }
+  .btn-teal:hover { background: #085747; }
+  .btn-ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--border-2); }
+  .btn-ghost:hover { background: var(--surface); }
+  .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: var(--r-sm); border: 1px solid var(--border-2); background: transparent; color: var(--ink-2); cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; }
+  .btn-sm:hover { background: var(--surface); }
+  .btn-danger { background: var(--red); color: #fff; }
+  .btn-danger:hover { opacity: 0.88; }
+
+  /* FORM */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-grid.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group label { font-size: 12px; font-weight: 500; color: var(--ink-2); }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 9px 12px; border: 1px solid var(--border-2); border-radius: var(--r-sm);
+    font-size: 13px; color: var(--ink); background: #fff; font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.15s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal-mid); }
+  .form-group textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+  .form-actions { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
+  .success-msg { font-size: 13px; color: var(--teal); display: none; }
+
+  /* JOB LIST */
+  .job-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .job-row:last-child { border-bottom: none; }
+  .job-icon { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; background: var(--surface); color: var(--ink-2); }
+  .job-body { flex: 1; min-width: 0; }
+  .job-title { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .job-company { font-size: 13px; color: var(--ink-3); }
+  .job-meta { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+  .job-actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+  .match-bar { height: 3px; border-radius: 2px; background: var(--surface-2); margin-top: 6px; overflow: hidden; width: 100px; }
+  .match-fill { height: 100%; background: var(--teal-mid); border-radius: 2px; }
+
+  /* AI OUTPUT */
+  .ai-output { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r); padding: 18px 20px; margin-top: 14px; font-size: 13px; line-height: 1.75; color: var(--ink); white-space: pre-wrap; }
+  .ai-loading { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-3); padding: 20px; }
+  .dots { display: flex; gap: 4px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-mid); animation: blink 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+
+  /* FOLLOW-UP ALERT */
+  .alert-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--amber-light); border: 1px solid rgba(180,83,9,0.2); border-radius: var(--r-sm); margin-bottom: 10px; gap: 12px; }
+  .alert-text { font-size: 13px; color: var(--amber); font-weight: 500; }
+  .alert-sub { font-size: 12px; color: var(--amber); opacity: 0.75; }
+
+  /* GMAIL STATUS */
+  .gmail-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 5px 12px; border-radius: 20px; background: var(--green-light); color: var(--green); font-weight: 500; margin-bottom: 16px; }
+  .gmail-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  /* SEARCH LINKS */
+  .link-cat { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .link-item { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .link-item:last-child { border-bottom: none; }
+  .link-item a { font-size: 13px; color: var(--teal); text-decoration: none; font-weight: 500; }
+  .link-item a:hover { text-decoration: underline; }
+  .link-item .link-meta { font-size: 12px; color: var(--ink-3); margin-top: 1px; }
+
+  /* GMAIL MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,14,13,0.5); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; border-radius: var(--r); width: 560px; max-width: 95vw; padding: 28px; box-shadow: var(--shadow-md); }
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--ink-3); margin-bottom: 20px; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+  /* EMPTY STATE */
+  .empty { text-align: center; padding: 40px 20px; color: var(--ink-3); font-size: 13px; }
+  .empty-icon { font-size: 32px; margin-bottom: 10px; opacity: 0.4; }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: #fff; padding: 12px 20px; border-radius: var(--r-sm); font-size: 13px; font-weight: 500; z-index: 999; transform: translateY(80px); opacity: 0; transition: all 0.3s; pointer-events: none; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* TABS inside panel */
+  .sub-tabs { display: flex; gap: 2px; background: var(--surface); border-radius: var(--r-sm); padding: 3px; margin-bottom: 20px; width: fit-content; }
+  .sub-tab { padding: 7px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; color: var(--ink-3); font-weight: 400; border: none; background: none; font-family: 'DM Sans', sans-serif; }
+  .sub-tab.active { background: #fff; color: var(--ink); font-weight: 500; box-shadow: var(--shadow); }
+
+  /* DIVIDER */
+  hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* SELECT in table */
+  .status-select { font-size: 12px; padding: 4px 8px; border: 1px solid var(--border-2); border-radius: var(--r-sm); background: #fff; color: var(--ink); font-family: 'DM Sans', sans-serif; cursor: pointer; }
+
+  @media (max-width: 768px) {
+    .sidebar { width: 200px; }
+    .main { padding: 24px 20px; }
+    .stat-grid { grid-template-columns: repeat(2,1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">JobHub</div>
+    <div class="brand-sub">Application tracker</div>
+  </div>
+  <div class="nav-item active" onclick="showPanel('dashboard',this)">
+    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke-width="2"/></svg>
+    Dashboard
+    <span class="nav-badge" id="nav-followup-count" style="display:none">0</span>
+  </div>
+  <div class="nav-item" onclick="showPanel('tracker',this)">
+    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+    Applications
+  </div>
+  <div class="nav-item" onclick="showPanel('add',this)">
+    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-width="2" d="M12 8v8M8 12h8"/></svg>
+    Log new job
+  </div>
+  <div class="nav-item" onclick="showPanel('followup',this)">
+    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+    Follow-up emails
+  </div>
+  <div class="nav-item" onclick="showPanel('coverletter',this)">
+    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    Cover letters
+  </div>
+  <div class="nav-item" onclick="showPanel('search',this)">
+    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
+    Job search links
+  </div>
+  <div class="sidebar-footer">
+    <div class="profile-chip">
+      <div class="avatar">MK</div>
+      <div>
+        <div class="profile-name">Mahalakshmi Kumar</div>
+        <div class="profile-role">Data Analyst · Birmingham</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- DASHBOARD -->
+  <div id="panel-dashboard" class="panel active">
+    <div class="page-header">
+      <div class="page-title">Good morning, Mahalakshmi</div>
+      <div class="page-sub" id="today-date"></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-n" id="s-total">0</div><div class="stat-l">Total applied</div></div>
+      <div class="stat-card"><div class="stat-n green" id="s-interview">0</div><div class="stat-l">Interviews</div></div>
+      <div class="stat-card"><div class="stat-n amber" id="s-fu">0</div><div class="stat-l">Follow-ups due</div></div>
+      <div class="stat-card"><div class="stat-n blue" id="s-offer">0</div><div class="stat-l">Offers</div></div>
+    </div>
+
+    <div class="section-label">Follow-ups due today (7+ days since applying)</div>
+    <div id="dash-followups"></div>
+
+    <hr>
+    <div class="section-label" style="margin-top:20px;">Recent applications</div>
+    <div id="dash-recent"></div>
+  </div>
+
+  <!-- TRACKER -->
+  <div id="panel-tracker" class="panel">
+    <div class="page-header">
+      <div class="page-title">Applications</div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <select id="filter-status" onchange="renderTracker()" style="font-size:13px;padding:8px 12px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:#fff;color:var(--ink);font-family:'DM Sans',sans-serif;cursor:pointer">
+          <option value="all">All statuses</option>
+          <option value="Applied">Applied</option>
+          <option value="Interview">Interview</option>
+          <option value="Follow-up sent">Follow-up sent</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+        <button class="btn btn-ghost" onclick="showPanel('add',document.querySelector('.nav-item:nth-child(4)'))">+ Log new job</button>
+      </div>
+    </div>
+    <div id="tracker-list"></div>
+  </div>
+
+  <!-- ADD JOB -->
+  <div id="panel-add" class="panel">
+    <div class="page-header">
+      <div class="page-title">Log new application</div>
+      <div class="page-sub">Track every job you apply to — even before you submit</div>
+    </div>
+    <div class="card" style="max-width:640px">
+      <div class="form-grid">
+        <div class="form-group"><label>Job title *</label><input id="a-title" placeholder="e.g. Data Analyst"></div>
+        <div class="form-group"><label>Company *</label><input id="a-company" placeholder="e.g. HSBC"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Location</label><input id="a-loc" placeholder="e.g. Birmingham / Hybrid"></div>
+        <div class="form-group"><label>Salary</label><input id="a-salary" placeholder="e.g. £35,000–£45,000"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Job URL</label><input id="a-url" placeholder="https://..."></div>
+        <div class="form-group"><label>Applied date</label><input id="a-date" type="date"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Status</label>
+          <select id="a-status">
+            <option>Applied</option><option>Interview</option><option>Follow-up sent</option><option>Offer</option><option>Rejected</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Hiring manager / contact email</label><input id="a-contact" placeholder="e.g. jane.smith@company.com"></div>
+      </div>
+      <div class="form-grid full">
+        <div class="form-group"><label>Notes</label><textarea id="a-notes" placeholder="Key requirements, how you found it, interview notes..."></textarea></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="addJob()">Save application</button>
+        <span class="success-msg" id="add-confirm">✓ Saved successfully</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOLLOW-UP -->
+  <div id="panel-followup" class="panel">
+    <div class="page-header">
+      <div class="page-title">Follow-up emails</div>
+      <div class="page-sub">AI writes the email, Gmail sends it directly — no copy-paste needed</div>
+    </div>
+    <div class="gmail-status"><span class="gmail-dot"></span> Gmail connected · Mahalakshmi.k1810@gmail.com</div>
+
+    <div class="card" style="max-width:640px">
+      <div class="section-label">Write & send a follow-up</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Select application</label>
+          <select id="fu-job" onchange="prefillFu()">
+            <option value="">— choose a job —</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Recipient email</label><input id="fu-email" placeholder="hiring@company.com"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Days since applying</label><input id="fu-days" type="number" value="7" min="1" max="60"></div>
+        <div class="form-group"><label>Email tone</label>
+          <select id="fu-tone">
+            <option>Polite and professional</option>
+            <option>Warm and enthusiastic</option>
+            <option>Brief and direct</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px"><label>Additional context (optional)</label>
+        <input id="fu-extra" placeholder="e.g. I interviewed on Monday, referenced project portfolio...">
+      </div>
+      <button class="btn btn-primary" onclick="generateAndShowFollowup()">Generate follow-up email</button>
+      <div id="fu-output"></div>
+      <div id="fu-send-area" style="display:none;margin-top:14px;">
+        <div class="form-grid">
+          <div class="form-group"><label>Subject line (editable)</label><input id="fu-subject" placeholder="Re: Application for [Role]"></div>
+          <div class="form-group"><label>Send to</label><input id="fu-send-email" placeholder="recruiter@company.com"></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-teal" onclick="sendViaGmail()">Send via Gmail</button>
+          <button class="btn btn-ghost" onclick="copyFuEmail()">Copy to clipboard</button>
+        </div>
+        <div id="fu-send-status" style="font-size:13px;margin-top:8px;display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COVER LETTER -->
+  <div id="panel-coverletter" class="panel">
+    <div class="page-header">
+      <div class="page-title">Cover letter generator</div>
+      <div class="page-sub">Tailored to each job using your real experience and achievements</div>
+    </div>
+    <div class="card" style="max-width:640px">
+      <div class="form-grid">
+        <div class="form-group"><label>Job title</label><input id="cl-title" placeholder="e.g. Data Quality Analyst"></div>
+        <div class="form-group"><label>Company name</label><input id="cl-company" placeholder="e.g. Barclays"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Hiring manager name (if known)</label><input id="cl-manager" placeholder="e.g. Sarah Johnson"></div>
+        <div class="form-group"><label>Tone</label>
+          <select id="cl-tone">
+            <option>Professional and confident</option>
+            <option>Warm and enthusiastic</option>
+            <option>Concise and direct</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid full">
+        <div class="form-group"><label>Key requirements from the job ad</label>
+          <textarea id="cl-reqs" placeholder="Paste 2–4 key bullet points from the job description, e.g.&#10;- SQL and Power BI experience required&#10;- ETL pipeline knowledge&#10;- Banking/financial services background preferred"></textarea>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="generateCoverLetter()">Generate cover letter</button>
+      <div id="cl-output"></div>
+      <div id="cl-actions" style="display:none;margin-top:10px;display:flex;gap:8px;"></div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div id="panel-search" class="panel">
+    <div class="page-header">
+      <div class="page-title">Job search links</div>
+      <div class="page-sub">Open each morning, bookmark and check daily for new roles</div>
+    </div>
+    <div id="search-links-container"></div>
+  </div>
+
+</main>
+
+<!-- GMAIL DRAFT MODAL -->
+<div class="modal-overlay" id="gmail-modal">
+  <div class="modal">
+    <div class="modal-title">Send via Gmail</div>
+    <div class="modal-sub" id="modal-sub">Review and confirm before sending</div>
+    <div class="form-group" style="margin-bottom:12px"><label>To</label><input id="m-to" placeholder="recipient@email.com"></div>
+    <div class="form-group" style="margin-bottom:12px"><label>Subject</label><input id="m-subject"></div>
+    <div class="form-group"><label>Message</label><textarea id="m-body" style="min-height:200px"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-teal" onclick="confirmSendGmail()">Send email</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PROFILE = {
+  name: "Mahalakshmi Kumar",
+  email: "Mahalakshmi.k1810@gmail.com",
+  phone: "+447900 424 857",
+  linkedin: "linkedin.com/in/mahalakshmikumar-dataanalyst",
+  portfolio: "mahalakshmikumar-data.github.io",
+  location: "Birmingham, commutable to London",
+  skills: "SQL, Python, Power BI (PL-300 certified), Tableau, Excel, IBM DataStage, ETL testing, data validation, Azure AI-900, CompTIA Data+",
+  experience: `Over 6 years of experience in data validation, ETL testing and quality assurance at NEC Corporation India, working with major banking clients (SMTB and IADB). Key achievements: validated 1.3 million rows of data across CSV, Excel and XML formats; identified 500+ defects (200+ critical P1); achieved zero defect leakage to production across 5 release cycles with 80%+ requirements coverage; reduced manual validation effort by 25% through recommending a universal trim function; achieved 100% SLA compliance across 160 client support tickets at ValGenesis. Certifications: Microsoft Power BI Data Analyst Associate (PL-300), CompTIA Data+, Azure AI-900, DataCamp SQL Associate, DataCamp Data Analyst Associate. Portfolio projects: Coffee Chain Sales & Profit Analysis (Tableau), Insurance Charges Analysis (Python), Crime Data Analysis (Power BI + Tableau), Retail Sales Performance (Power BI), Bookstore Performance (Tableau), SQL Menu & Employee Analysis.`
+};
+
+const JOB_LINKS = [
+  { cat: "Data Analyst", icon: "DA", links: [
+    { label: "Indeed — Data Analyst Birmingham", url: "https://uk.indeed.com/jobs?q=Data+Analyst+SQL+Power+BI&l=Birmingham%2C+England&sort=date", meta: "Filters by SQL + Power BI, newest first" },
+    { label: "Indeed — Data Analyst remote UK", url: "https://uk.indeed.com/jobs?q=Data+Analyst+Power+BI+Tableau&remotejob=032b3046-06a0-4cbb-8c7c-501578ad9650&sort=date", meta: "Remote & hybrid roles across UK" },
+    { label: "Glassdoor — Data Analyst Birmingham", url: "https://www.glassdoor.co.uk/Job/birmingham-data-analyst-jobs-SRCH_IL.0,10_IC3376957_KO11,23.htm", meta: "With salary estimates" },
+    { label: "Hays — Data Analyst Birmingham", url: "https://www.hays.co.uk/job-search/data-analyst-jobs-in-birmingham-uk", meta: "Specialist recruiter listings" },
+  ]},
+  { cat: "Data Quality / Governance", icon: "DQ", links: [
+    { label: "Indeed — Data Quality Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Quality+Analyst&l=United+Kingdom&sort=date", meta: "Your strongest differentiator role" },
+    { label: "Indeed — Data Governance Analyst", url: "https://uk.indeed.com/jobs?q=Data+Governance+Analyst+SQL&l=United+Kingdom&sort=date", meta: "Growing demand in financial services" },
+    { label: "Totaljobs — Data Quality Birmingham", url: "https://www.totaljobs.com/jobs/data-quality-analyst/in-birmingham", meta: "Local roles with salary filters" },
+  ]},
+  { cat: "BI / Reporting Analyst", icon: "BI", links: [
+    { label: "Indeed — BI Analyst Power BI Birmingham", url: "https://uk.indeed.com/jobs?q=BI+Analyst+Power+BI&l=Birmingham%2C+England&sort=date", meta: "Direct match to your PL-300 cert" },
+    { label: "CV-Library — Power BI roles UK", url: "https://www.cv-library.co.uk/power-bi-developer-jobs", meta: "Large volume of live listings" },
+    { label: "Indeed — Reporting Analyst UK", url: "https://uk.indeed.com/jobs?q=Reporting+Analyst+Power+BI+Tableau&l=United+Kingdom&sort=date", meta: "NHS, public sector & finance roles" },
+  ]},
+  { cat: "Banking / Financial Data", icon: "FD", links: [
+    { label: "Indeed — Banking Data Analyst UK", url: "https://uk.indeed.com/jobs?q=Data+Analyst+Banking+Financial+Services&sort=date", meta: "Premium for your SMTB/IADB experience" },
+    { label: "Totaljobs — Financial Data Analyst London", url: "https://www.totaljobs.com/jobs/financial-data-analyst/in-london", meta: "Higher salary bands £40k–£65k" },
+    { label: "Glassdoor — Data Analyst London", url: "https://www.glassdoor.co.uk/Job/london-data-analyst-jobs-SRCH_IL.0,6_IM1035_KO7,19.htm", meta: "With company reviews" },
+  ]},
+  { cat: "ETL / Data Migration", icon: "ET", links: [
+    { label: "Indeed — ETL Tester / Data Analyst UK", url: "https://uk.indeed.com/jobs?q=ETL+Tester+Data+Analyst&l=United+Kingdom&sort=date", meta: "IBM DataStage experience valued" },
+    { label: "Indeed — Data Migration Analyst", url: "https://uk.indeed.com/jobs?q=Data+Migration+Analyst&l=United+Kingdom&sort=date", meta: "Cloud migration projects booming" },
+  ]},
+  { cat: "MI / Management Information", icon: "MI", links: [
+    { label: "Indeed — MI Analyst Birmingham", url: "https://uk.indeed.com/jobs?q=MI+Analyst+SQL+Power+BI&l=Birmingham%2C+England&sort=date", meta: "NHS & local authority roles" },
+    { label: "Indeed — Management Information Analyst UK", url: "https://uk.indeed.com/jobs?q=Management+Information+Analyst+Power+BI&l=United+Kingdom&sort=date", meta: "Strong match for reporting skills" },
+  ]},
+];
+
+let jobs = JSON.parse(localStorage.getItem('jobhub_jobs') || '[]');
+let generatedEmail = '';
+let generatedSubject = '';
+
+function save() { try { localStorage.setItem('jobhub_jobs', JSON.stringify(jobs)); } catch(e){} }
+
+function toast(msg, duration=3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+function showPanel(id, navEl) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  if (id === 'dashboard') renderDashboard();
+  if (id === 'tracker') renderTracker();
+  if (id === 'followup') { populateFuSelect(); }
+  if (id === 'search') renderSearchLinks();
+}
+
+function statusBadge(s) {
+  const map = { Applied: 'applied', Interview: 'interview', 'Follow-up sent': 'followup', Rejected: 'rejected', Offer: 'offer' };
+  return `<span class="badge ${map[s]||'applied'}">${s}</span>`;
+}
+
+function daysSince(d) { return Math.floor((new Date() - new Date(d)) / (1000*60*60*24)); }
+
+function renderDashboard() {
+  const today = new Date();
+  document.getElementById('today-date').textContent = today.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  const interviews = jobs.filter(j => j.status === 'Interview').length;
+  const offers = jobs.filter(j => j.status === 'Offer').length;
+  const fuDue = jobs.filter(j => j.status === 'Applied' && daysSince(j.date) >= 7);
+  document.getElementById('s-total').textContent = jobs.length;
+  document.getElementById('s-interview').textContent = interviews;
+  document.getElementById('s-fu').textContent = fuDue.length;
+  document.getElementById('s-offer').textContent = offers;
+
+  const fuBadge = document.getElementById('nav-followup-count');
+  if (fuDue.length > 0) { fuBadge.textContent = fuDue.length; fuBadge.style.display = ''; }
+  else fuBadge.style.display = 'none';
+
+  const fuDiv = document.getElementById('dash-followups');
+  if (fuDue.length === 0) {
+    fuDiv.innerHTML = '<div class="card" style="color:var(--ink-3);font-size:13px;">No follow-ups due. Check back tomorrow.</div>';
+  } else {
+    fuDiv.innerHTML = fuDue.map(j => `
+      <div class="alert-row">
+        <div>
+          <div class="alert-text">${j.title} — ${j.company}</div>
+          <div class="alert-sub">Applied ${j.date} · ${daysSince(j.date)} days ago${j.contact ? ' · ' + j.contact : ''}</div>
+        </div>
+        <button class="btn btn-sm" onclick="goFollowup(${jobs.indexOf(j)})">Write follow-up</button>
+      </div>`).join('');
+  }
+
+  const recent = document.getElementById('dash-recent');
+  const r = [...jobs].reverse().slice(0, 6);
+  if (r.length === 0) {
+    recent.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><p>No applications yet.</p><p style="margin-top:6px"><a href="#" onclick="showPanel(\'add\',document.querySelectorAll(\'.nav-item\')[2]);return false" style="color:var(--teal)">Log your first application →</a></p></div>';
+  } else {
+    recent.innerHTML = r.map(j => `
+      <div class="job-row">
+        <div class="job-icon">${j.company.substring(0,2).toUpperCase()}</div>
+        <div class="job-body">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span class="job-title">${j.title}</span>${statusBadge(j.status)}
+          </div>
+          <div class="job-company">${j.company} · ${j.location||'UK'}</div>
+          <div class="job-meta">Applied ${j.date} · ${daysSince(j.date)} days ago${j.salary ? ' · ' + j.salary : ''}</div>
+        </div>
+      </div>`).join('');
+  }
+}
+
+function renderTracker() {
+  const filter = document.getElementById('filter-status').value;
+  const filtered = filter === 'all' ? jobs : jobs.filter(j => j.status === filter);
+  const list = document.getElementById('tracker-list');
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><p>No applications found.</p></div>';
+    return;
+  }
+  list.innerHTML = filtered.map((j, idx) => {
+    const realIdx = jobs.indexOf(j);
+    return `
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+            <span class="job-title">${j.title}</span>${statusBadge(j.status)}
+          </div>
+          <div class="job-company">${j.company} · ${j.location||'UK'}</div>
+          <div class="job-meta">Applied ${j.date} · ${daysSince(j.date)} days ago${j.salary ? ' · ' + j.salary : ''}</div>
+          ${j.contact ? `<div class="job-meta">Contact: ${j.contact}</div>` : ''}
+          ${j.notes ? `<div class="job-meta" style="margin-top:4px;font-style:italic">${j.notes}</div>` : ''}
+        </div>
+        <select class="status-select" onchange="updateStatus(${realIdx},this.value)">
+          <option disabled selected>Update status</option>
+          <option>Applied</option><option>Interview</option><option>Follow-up sent</option><option>Offer</option><option>Rejected</option>
+        </select>
+      </div>
+      <div class="job-actions">
+        ${j.url ? `<a href="${j.url}" target="_blank" class="btn btn-sm">View job</a>` : ''}
+        <button class="btn btn-sm" onclick="goFollowup(${realIdx})">Write follow-up</button>
+        <button class="btn btn-sm" style="color:var(--red);border-color:rgba(185,28,28,0.2)" onclick="deleteJob(${realIdx})">Remove</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateStatus(i, s) { jobs[i].status = s; save(); renderTracker(); renderDashboard(); toast('Status updated to: ' + s); }
+function deleteJob(i) { if (confirm('Remove this application?')) { jobs.splice(i,1); save(); renderTracker(); renderDashboard(); toast('Application removed'); } }
+
+function addJob() {
+  const title = document.getElementById('a-title').value.trim();
+  const company = document.getElementById('a-company').value.trim();
+  if (!title || !company) { toast('Please enter a job title and company name'); return; }
+  jobs.push({
+    title, company,
+    location: document.getElementById('a-loc').value.trim() || 'UK',
+    salary: document.getElementById('a-salary').value.trim(),
+    url: document.getElementById('a-url').value.trim(),
+    date: document.getElementById('a-date').value || new Date().toISOString().split('T')[0],
+    status: document.getElementById('a-status').value,
+    contact: document.getElementById('a-contact').value.trim(),
+    notes: document.getElementById('a-notes').value.trim(),
+    addedAt: Date.now()
+  });
+  save();
+  const conf = document.getElementById('add-confirm');
+  conf.style.display = 'inline';
+  setTimeout(() => conf.style.display = 'none', 2500);
+  ['a-title','a-company','a-loc','a-salary','a-url','a-contact','a-notes'].forEach(id => document.getElementById(id).value = '');
+  toast('Application saved!');
+}
+
+function populateFuSelect() {
+  const sel = document.getElementById('fu-job');
+  sel.innerHTML = '<option value="">— choose a job —</option>' +
+    jobs.map((j,i) => `<option value="${i}">${j.title} — ${j.company}</option>`).join('');
+}
+
+function prefillFu() {
+  const i = document.getElementById('fu-job').value;
+  if (i === '') return;
+  const j = jobs[i];
+  document.getElementById('fu-days').value = Math.max(1, daysSince(j.date)) || 7;
+  if (j.contact && j.contact.includes('@')) document.getElementById('fu-email').value = j.contact;
+}
+
+function goFollowup(idx) {
+  showPanel('followup', document.querySelectorAll('.nav-item')[3]);
+  setTimeout(() => {
+    populateFuSelect();
+    document.getElementById('fu-job').value = idx;
+    prefillFu();
+  }, 100);
+}
+
+async function generateAndShowFollowup() {
+  const i = document.getElementById('fu-job').value;
+  const days = document.getElementById('fu-days').value || 7;
+  const tone = document.getElementById('fu-tone').value;
+  const extra = document.getElementById('fu-extra').value.trim();
+  const email = document.getElementById('fu-email').value.trim();
+
+  let jobCtx = 'a Data Analyst role in the UK';
+  let company = '';
+  if (i !== '') {
+    const j = jobs[i];
+    jobCtx = `${j.title} at ${j.company}`;
+    company = j.company;
+    if (j.contact && j.contact.includes('@') && !email) document.getElementById('fu-email').value = j.contact;
+  }
+
+  const out = document.getElementById('fu-output');
+  out.innerHTML = `<div class="ai-loading"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div> Writing your follow-up email...</div>`;
+  document.getElementById('fu-send-area').style.display = 'none';
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 800,
+        messages: [{ role: 'user', content: `Write a ${tone} follow-up email for a job application.
+
+Candidate: ${PROFILE.name}
+Email: ${PROFILE.email}
+Phone: ${PROFILE.phone}
+LinkedIn: ${PROFILE.linkedin}
+Portfolio: ${PROFILE.portfolio}
+Key background: ${PROFILE.experience}
+Skills: ${PROFILE.skills}
+
+Job applied for: ${jobCtx}
+Days since applying: ${days}
+${extra ? 'Additional context: ' + extra : ''}
+
+Instructions:
+- Write ONLY the email body (no subject line in the body)
+- Use the candidate's real name and details, no placeholders
+- Reference specific achievements naturally (e.g. 1.3M rows validated, zero defect leakage)
+- Keep it under 120 words — concise is more likely to get a response
+- Tone: ${tone}
+- End with contact details on separate lines
+- Do NOT include "Subject:" in the body
+
+Then on a new line write exactly:
+SUBJECT: [write the subject line here]` }]
+      })
+    });
+    const d = await resp.json();
+    const full = d.content.map(c => c.text || '').join('');
+    const subjectMatch = full.match(/SUBJECT:\s*(.+)/i);
+    generatedSubject = subjectMatch ? subjectMatch[1].trim() : `Following up on my application for ${jobCtx}`;
+    generatedEmail = full.replace(/SUBJECT:.*/is, '').trim();
+
+    out.innerHTML = `<div class="ai-output">${generatedEmail}</div>`;
+    document.getElementById('fu-subject').value = generatedSubject;
+    document.getElementById('fu-send-email').value = email;
+    document.getElementById('fu-send-area').style.display = 'block';
+  } catch(e) {
+    out.innerHTML = '<div class="ai-output" style="color:var(--red)">Error generating email. Check your connection and try again.</div>';
+  }
+}
+
+function copyFuEmail() {
+  navigator.clipboard.writeText(generatedEmail).then(() => toast('Email copied to clipboard!'));
+}
+
+function sendViaGmail() {
+  const to = document.getElementById('fu-send-email').value.trim();
+  const subject = document.getElementById('fu-subject').value.trim();
+  if (!to || !to.includes('@')) { toast('Please enter a valid recipient email address'); return; }
+  document.getElementById('m-to').value = to;
+  document.getElementById('m-subject').value = subject || generatedSubject;
+  document.getElementById('m-body').value = generatedEmail;
+  document.getElementById('modal-sub').textContent = `Sending from ${PROFILE.email}`;
+  document.getElementById('gmail-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('gmail-modal').classList.remove('open'); }
+
+async function confirmSendGmail() {
+  const to = document.getElementById('m-to').value.trim();
+  const subject = document.getElementById('m-subject').value.trim();
+  const body = document.getElementById('m-body').value.trim();
+
+  if (!to || !subject || !body) { toast('Please fill in all fields'); return; }
+
+  const btn = document.querySelector('#gmail-modal .btn-teal');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+
+  try {
+    const rawEmail = [`To: ${to}`, `Subject: ${subject}`, `Content-Type: text/plain; charset=utf-8`, `MIME-Version: 1.0`, ``, body].join('\n');
+    const encoded = btoa(unescape(encodeURIComponent(rawEmail))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+    const token = await getGmailToken();
+    const resp = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ raw: encoded })
+    });
+
+    if (resp.ok) {
+      closeModal();
+      toast('Email sent successfully via Gmail! ✓', 4000);
+      const fuIdx = document.getElementById('fu-job').value;
+      if (fuIdx !== '') { jobs[fuIdx].status = 'Follow-up sent'; save(); }
+      document.getElementById('fu-send-status').style.display = 'block';
+      document.getElementById('fu-send-status').innerHTML = '<span style="color:var(--teal)">✓ Email sent! Application status updated to "Follow-up sent".</span>';
+    } else {
+      const err = await resp.json();
+      throw new Error(err.error?.message || 'Send failed');
+    }
+  } catch(e) {
+    toast('Could not send via Gmail API. Use the Gmail compose window instead.', 5000);
+    const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(mailto);
+    closeModal();
+  }
+  btn.textContent = 'Send email'; btn.disabled = false;
+}
+
+async function getGmailToken() {
+  return new Promise((resolve, reject) => {
+    if (typeof google !== 'undefined' && google.accounts) {
+      google.accounts.oauth2.initTokenClient({
+        client_id: '[[GOOGLE_CLIENT_ID]]',
+        scope: 'https://www.googleapis.com/auth/gmail.send',
+        callback: (r) => r.error ? reject(r.error) : resolve(r.access_token)
+      }).requestAccessToken();
+    } else {
+      reject(new Error('Google OAuth not configured'));
+    }
+  });
+}
+
+async function generateCoverLetter() {
+  const title = document.getElementById('cl-title').value.trim() || 'Data Analyst';
+  const company = document.getElementById('cl-company').value.trim() || 'the company';
+  const manager = document.getElementById('cl-manager').value.trim();
+  const reqs = document.getElementById('cl-reqs').value.trim();
+  const tone = document.getElementById('cl-tone').value;
+
+  const out = document.getElementById('cl-output');
+  out.innerHTML = `<div class="ai-loading"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div> Writing your cover letter...</div>`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: `Write a ${tone} cover letter for ${PROFILE.name} applying for the role of ${title} at ${company}.
+
+Full profile:
+${PROFILE.experience}
+Skills: ${PROFILE.skills}
+Location: ${PROFILE.location}
+Email: ${PROFILE.email} | Phone: ${PROFILE.phone}
+LinkedIn: ${PROFILE.linkedin} | Portfolio: ${PROFILE.portfolio}
+
+${reqs ? 'Key job requirements:\n' + reqs : ''}
+${manager ? 'Hiring manager: ' + manager : ''}
+
+Instructions:
+- Write a compelling 3-paragraph cover letter, under 250 words
+- Address as "Dear ${manager || 'Hiring Manager'}"
+- Open by connecting your experience directly to this specific role and company
+- Middle paragraph: lead with the 1.3M rows / zero defect leakage achievement, mention Power BI certification (PL-300), and one portfolio project relevant to the role
+- Close paragraph: express genuine enthusiasm and clear call to action
+- Sign off: Yours sincerely, Mahalakshmi Kumar | ${PROFILE.email} | ${PROFILE.phone}
+- Do NOT use any placeholder text or brackets
+- Tone: ${tone}` }]
+      })
+    });
+    const d = await resp.json();
+    const text = d.content.map(c => c.text || '').join('');
+    out.innerHTML = `<div class="ai-output">${text}</div>`;
+    document.getElementById('cl-actions').style.display = 'flex';
+    document.getElementById('cl-actions').innerHTML = `
+      <button class="btn btn-ghost" onclick="copyCL()">Copy to clipboard</button>
+      <button class="btn btn-ghost" onclick="downloadCL('${title}','${company}')">Download as .txt</button>`;
+  } catch(e) {
+    out.innerHTML = '<div class="ai-output" style="color:var(--red)">Error generating cover letter. Please try again.</div>';
+  }
+}
+
+function copyCL() {
+  const text = document.querySelector('#cl-output .ai-output')?.textContent || '';
+  navigator.clipboard.writeText(text).then(() => toast('Cover letter copied!'));
+}
+
+function downloadCL(title, company) {
+  const text = document.querySelector('#cl-output .ai-output')?.textContent || '';
+  const blob = new Blob([text], { type: 'text/plain' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `Cover_Letter_${title}_${company}.txt`; a.click();
+}
+
+function renderSearchLinks() {
+  const container = document.getElementById('search-links-container');
+  container.innerHTML = JOB_LINKS.map(cat => `
+    <div class="card" style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div class="job-icon" style="background:var(--teal-light);color:var(--teal)">${cat.icon}</div>
+        <div class="link-cat">${cat.cat}</div>
+      </div>
+      ${cat.links.map(l => `
+        <div class="link-item">
+          <div style="flex:1">
+            <div><a href="${l.url}" target="_blank">${l.label}</a></div>
+            <div class="link-meta">${l.meta}</div>
+          </div>
+          <a href="${l.url}" target="_blank" class="btn btn-sm">Open →</a>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+document.getElementById('a-date').value = new Date().toISOString().split('T')[0];
+renderDashboard();
+</script>
+</body>
+</html>
